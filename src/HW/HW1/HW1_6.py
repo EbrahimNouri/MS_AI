@@ -3,7 +3,7 @@ import json
 from typing import Optional
 
 FILE_PATH = Path("products.txt")
-product_data: list[Product] = []
+product_local: list[Product] = []
 
 
 class Product:
@@ -26,12 +26,12 @@ class Product:
 
 def search(name: str, include_file: bool = True, include_memory: bool = True) -> Optional[Product]:
   if include_memory:
-    for product in product_data:
+    for product in product_local:
       if name.lower() in product.name.lower():
         return product
 
   if include_file:
-    products_file = get_all_products(True, False)
+    products_file = get_all_products(include_file=True, include_memory=False)
     for product in products_file:
       if name.lower() in product.name.lower():
         return product
@@ -39,35 +39,30 @@ def search(name: str, include_file: bool = True, include_memory: bool = True) ->
   return None
 
 
-def check_file():
-  if not FILE_PATH.exists() or FILE_PATH.stat().st_size == 0:
-    FILE_PATH.write_text(json.dumps([]))
-
-
 def save() -> None:
-  for product in product_data:
-    existing = search(product.name, include_file=False)
-    if existing is not None and existing is not product:
+  for product in product_local:
+    existing = search(product.name, include_file=True, include_memory=False)
+    if existing is not None:
       existing.count += product.count
       existing.saved = True
       write_to_file(existing)
     else:
       product.saved = True
       write_to_file(product)
-  product_data.clear()
+  product_local.clear()
   print("Saved successfully.")
 
 
 def add(product_input: Product) -> None:
-  for product in product_data:
+  for product in product_local:
     if product_input.name.lower() in product.name.lower():
       product.count += product_input.count
       return
-  product_data.append(product_input)
+  product_local.append(product_input)
 
 
 def delete_from_file(product: Product) -> bool:
-  products = get_all_products(True, False)
+  products = get_all_products(include_file=True, include_memory=False)
 
   for i, p in enumerate(products):
     if p.name.lower() == product.name.lower():
@@ -101,7 +96,7 @@ def sell(product: Product) -> None:
 
 
 def write_to_file(product: Product):
-  products = get_all_products(True, False)
+  products = get_all_products(include_file=True, include_memory=False)
 
   for i, p in enumerate(products):
     if p.name.lower() == product.name.lower():
@@ -122,12 +117,12 @@ def get_all_products(include_file: bool = True, include_memory: bool = True) -> 
     get_all_from_file = [Product.dict_to_obj(p, True) for p in products_dict]
     products.extend(get_all_from_file)
   if include_memory:
-    products.extend(product_data)
+    products.extend(product_local)
   return products
 
 
 def report() -> dict[str, float]:
-  products = get_all_products()
+  products = get_all_products(include_file=True, include_memory=False)
   if not products:
     return {
       "count_of_saved": 0,
@@ -177,7 +172,7 @@ def menu():
         print("Product not found.")
 
     case "4":  # Show
-      products = get_all_products(True, True)
+      products = get_all_products(include_file=True, include_memory=True)
       if products:
         for product in products:
           print(product)
@@ -207,6 +202,11 @@ def get_product_from_input():
     print("Invalid count")
     return get_product_from_input()
   return Product(name, int(count), False)
+
+
+def check_file():
+  if not FILE_PATH.exists() or FILE_PATH.stat().st_size == 0:
+    FILE_PATH.write_text(json.dumps([]))
 
 
 def main():

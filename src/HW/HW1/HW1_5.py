@@ -34,22 +34,22 @@ def add_to_file(book: Book) -> None:
 
 
 def search_by_name(name: str) -> Book | None:
-  return next((Book(b["name"], b["author"]) for b in json.loads(FILE_PATH.read_text()) if
-               name.lower() in b["name"].lower()), None)
-  # books_data = json.loads(FILE_PATH.read_text())
-  # for book in books_data:
-  #     if name.lower() in book["name"].lower():
-  #         return Book(book["name"], book["author"])
-  # return None
+  # return next((Book(b["name"], b["author"]) for b in json.loads(FILE_PATH.read_text()) if
+  #              name.lower() in b["name"].lower()), None)
+  books_data = json.loads(FILE_PATH.read_text())
+  for book in books_data:
+    if name.lower() in book["name"].lower():
+      return Book(book["name"], book["author"])
+  return None
 
 
 def show_all():
-  return list(map(lambda b: Book(b["name"], b["author"]), json.loads(FILE_PATH.read_text())))
-  # books_data = json.loads(FILE_PATH.read_text())
-  # res = []
-  # for book in books_data:
-  #     res.append(Book(book["name"], book["author"])
-  # return res
+  # return list(map(lambda b: Book(b["name"], b["author"]), json.loads(FILE_PATH.read_text())))
+  books_data = json.loads(FILE_PATH.read_text())
+  res = []
+  for book in books_data:
+    res.append(Book(book["name"], book["author"]))
+  return res
 
 
 def menu():
@@ -68,6 +68,7 @@ def menu():
       name = input("Enter book name: ")
       author = input("Enter book author: ")
       add_to_file(Book(name, author))
+
     case "2":
       name = input("Enter book name: ")
       book = search_by_name(name)
@@ -75,16 +76,20 @@ def menu():
         print(book)
       else:
         print("Book not found.")
+
     case "3":
       books = show_all()
       [print(book) for book in books]
+
     case "4":
       print("Exiting...")
       exit()
+
     case _:
       print("Invalid input.")
       menu()
 
 
-while True:
-  menu()
+if __name__ == "__main__":
+  while True:
+    menu()
