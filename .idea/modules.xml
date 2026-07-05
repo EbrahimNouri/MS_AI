@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MS_AI.iml" filepath="$PROJECT_DIR$/.idea/MS_AI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../karvand-manager/.idea/karvand-manager.iml" filepath="$PROJECT_DIR$/../karvand-manager/.idea/karvand-manager.iml" />
     </modules>
   </component>
 </project>

@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 from typing import Optional
 
-USE_JSON = False
+USE_JSON = True
 product_local: list[Product] = []
 
 
