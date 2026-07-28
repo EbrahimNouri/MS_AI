@@ -8,3 +8,7 @@ numpy
 notebook
 wonderwords
 pygame
+pandas
+scikit-learn
+matplotlib
+scipy

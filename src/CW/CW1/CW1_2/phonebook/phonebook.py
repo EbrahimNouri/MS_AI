@@ -1,17 +1,22 @@
 phonebook = {}
 
+
 def add_contact(name="", phone=""):
     phonebook[name] = phone
+
 
 def delete_contact(name=""):
     phonebook.pop(name)
 
+
 def update_contact(name="", phone=""):
     phonebook[name] = phone
+
 
 def print_contacts():
     for key, value in phonebook.items():
         print(f"{key}: {value}")
+
 
 def find_contact(name=""):
     return phonebook.get(name)

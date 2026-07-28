@@ -71,7 +71,9 @@ class SimpleFileManager:
             for file in files:
                 size = file.stat().st_size
                 modified = datetime.datetime.fromtimestamp(file.stat().st_mtime)
-                print(f"  📄 {file.name} ({size} bytes, modified: {modified.strftime('%Y-%m-%d %H:%M')})")
+                print(
+                    f"  📄 {file.name} ({size} bytes, modified: {modified.strftime('%Y-%m-%d %H:%M')})"
+                )
         else:
             print(f"📋 No files found in {self.base_dir}")
 
@@ -149,19 +151,25 @@ class SimpleFileManager:
 
         stats = file_path.stat()
         info = {
-            'name': file_path.name,
-            'path': str(file_path),
-            'parent': str(file_path.parent),
-            'exists': file_path.exists(),
-            'is_file': file_path.is_file(),
-            'is_dir': file_path.is_dir(),
-            'size_bytes': stats.st_size,
-            'created': datetime.datetime.fromtimestamp(stats.st_ctime).strftime('%Y-%m-%d %H:%M:%S'),
-            'modified': datetime.datetime.fromtimestamp(stats.st_mtime).strftime('%Y-%m-%d %H:%M:%S'),
-            'accessed': datetime.datetime.fromtimestamp(stats.st_atime).strftime('%Y-%m-%d %H:%M:%S'),
-            'extension': file_path.suffix,
-            'stem': file_path.stem,
-            'absolute': str(file_path.absolute()),
+            "name": file_path.name,
+            "path": str(file_path),
+            "parent": str(file_path.parent),
+            "exists": file_path.exists(),
+            "is_file": file_path.is_file(),
+            "is_dir": file_path.is_dir(),
+            "size_bytes": stats.st_size,
+            "created": datetime.datetime.fromtimestamp(stats.st_ctime).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+            "modified": datetime.datetime.fromtimestamp(stats.st_mtime).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+            "accessed": datetime.datetime.fromtimestamp(stats.st_atime).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+            "extension": file_path.suffix,
+            "stem": file_path.stem,
+            "absolute": str(file_path.absolute()),
         }
 
         print(f"\n📊 File information for: {file_path.name}")
@@ -195,8 +203,12 @@ class SimpleFileManager:
         self.create_directory("backup")
 
         # Create sample files
-        self.create_file("README.md", "# Sample Project\n\nThis is a demonstration of pathlib.")
-        self.create_file("config.json", '{"app_name": "Pathlib Demo", "version": "1.0.0"}')
+        self.create_file(
+            "README.md", "# Sample Project\n\nThis is a demonstration of pathlib."
+        )
+        self.create_file(
+            "config.json", '{"app_name": "Pathlib Demo", "version": "1.0.0"}'
+        )
         self.create_file("data/sample.txt", "This is a sample text file.")
         self.create_file("docs/guide.txt", "Here's the user guide.")
 
@@ -204,7 +216,7 @@ class SimpleFileManager:
         data = {
             "timestamp": datetime.datetime.now().isoformat(),
             "user": os.getenv("USER", "unknown"),
-            "files": ["README.md", "config.json"]
+            "files": ["README.md", "config.json"],
         }
         self.create_file("data/info.json", json.dumps(data, indent=2))
 
