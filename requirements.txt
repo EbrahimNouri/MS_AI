@@ -2,11 +2,13 @@
 kagglehub
 matplotlib
 seaborn
-sklearn
+scikit-learn
 pandas
 numpy
 notebook
 wonderwords
+pandas
+matplotlib
 pygame
 pandas
 scikit-learn
