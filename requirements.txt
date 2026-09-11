@@ -14,4 +14,6 @@ pandas
 scikit-learn
 matplotlib
 scipy
+torch
+torchvision
 #torch
