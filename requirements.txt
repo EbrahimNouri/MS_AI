@@ -14,6 +14,8 @@ pandas
 scikit-learn
 matplotlib
 scipy
+--extra-index-url https://pytorch.org
 torch
 torchvision
-#torch
+torchaudio
+#pygame-ce
