@@ -9,13 +9,14 @@ notebook
 wonderwords
 pandas
 matplotlib
-pygame
+pygame-ce
 pandas
 scikit-learn
 matplotlib
 scipy
 --extra-index-url https://pytorch.org
 torch
+transformers
 torchvision
 torchaudio
 #pygame-ce
